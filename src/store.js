@@ -11,7 +11,7 @@ let blogData = createSlice({
       id: 2,
       title: "Second blog",
       mainText:
-        "With this approach supported, the developer only needs to add the 'loading' attribute to the image to be embedded to implement lazily loading.It' s not even necessary for developers to implement this. With a certain amount of HTML foundation, you can add enough loading properties and let more people manage them.Let&colon;s look at the code for that method.",
+        "With this approach supported, the developer only needs to add the 'loading' attribute to the image to be embedded to implement lazily loading.It' s not even necessary for developers to implement this. With a certain amount of HTML foundation, you can add enough loading properties and let more people manage them.",
       created: "19/Jan/2023 15:40",
       updated: "19/Jan/2023",
       like: 0,
@@ -44,6 +44,10 @@ let blogData = createSlice({
       };
       state.splice(action.payload.index, 1, modifiedData);
     },
+    deleteBlogData: (state = this.initialState, action) => {
+      let findDeleteId = state.findIndex((post) => post.id === action.payload);
+      state.splice(findDeleteId, 1);
+    },
   },
 });
 
@@ -53,4 +57,4 @@ export default configureStore({
   },
 });
 
-export let { getBlogData, modifyBlogData } = blogData.actions;
+export let { getBlogData, modifyBlogData, deleteBlogData } = blogData.actions;

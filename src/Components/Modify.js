@@ -2,7 +2,7 @@ import moment from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { modifyBlogData } from "../store";
+import { deleteBlogData, modifyBlogData } from "../store";
 
 // Modify blog's post
 export default function Modify() {
@@ -35,9 +35,24 @@ export default function Modify() {
     navigate("/");
   }
 
+  function deleteData() {
+    if (window.confirm("Would you like to delete this post?")) {
+      dispatch(deleteBlogData(blogData[id - 1].id));
+      navigate("/");
+    }
+  }
   return (
     <form className='border flex shadow-sm rounded-md w-full px-5 py-2 flex-col hover:border-gray-500 hover:cursor-pointer transition ease-in duration-200 space-y-2' onSubmit={onSubmit}>
-      <h1 className='text-lg text-gray-600 select-none'>Edit Post</h1>
+      <div className='flex justify-between'>
+        <h1 className='text-lg text-gray-600 select-none'>Edit Post</h1>
+        <div
+          className='hover:bg-slate-100 rounded-md p-1'
+          onClick={() => {
+            deleteData();
+          }}>
+          ❌
+        </div>
+      </div>
       <div className='w-full  items-center  flex pt-2 py-1  '>
         {/* Title */}
         <label className='absolute p-2 text-left  text-gray-800' htmlFor='title'>
