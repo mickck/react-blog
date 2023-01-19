@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function BlogCard() {
   let { blogData } = useSelector((state) => state);
-
+  const navigate = useNavigate();
   return (
     <>
       {blogData
@@ -11,7 +11,12 @@ export default function BlogCard() {
         .reverse()
         .map((blog, index) => {
           return (
-            <div className='border flex shadow-sm rounded-md w-full px-5 py-2 flex-col' key={index}>
+            <div
+              className='border flex shadow-sm rounded-md w-full px-5 py-2 flex-col hover:border-gray-500 hover:cursor-pointer transition ease-in duration-200 '
+              key={index}
+              onClick={() => {
+                navigate(`/blog/${blog.id}`);
+              }}>
               <h2 className='text-xl text-center'>{blog.title}</h2>
               <div className='text-gray-400'>{blog.updated ? blog.updated : blog.created}</div>
               <div className='w-full border-gray-200 border' />
@@ -27,9 +32,10 @@ export default function BlogCard() {
           );
         })}
       <Link to={"/write"}>
-        <div className='fixed bottom-0 pl-[120px]  pb-20  sm:pl-[200px] sm:pb-[120px]'>
+        {/* Float Button */}
+        <div className='fixed bottom-0 pl-[120px]  pb-32  sm:pl-[200px] sm:pb-[120px]'>
           <div className=''>
-            <button className='p-0 w-10 h-10 bg-slate-600 rounded-full hover:bg-slate-800 active:outline-none active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none'>
+            <button className='p-0 w-10 h-10 bg-slate-600 rounded-full hover:bg-slate-800 active:outline-none active:shadow-lg mouse shadow transition ease-in duration-100 focus:outline-none'>
               <svg viewBox='0 0 20 20' enableBackground='new 0 0 20 20' className='w-6 h-6 inline-block'>
                 <path
                   fill='#FFFFFF'

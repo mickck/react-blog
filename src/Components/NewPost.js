@@ -1,14 +1,34 @@
 import moment from "moment/moment";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getBlogData } from "../store";
+
 export default function NewWrite() {
   const nowTime = moment().format("DD/MMM/YYYY HH:mm");
+  let [formTitle, setFormTitle] = useState("");
+  let [formTextArea, setFormTextArea] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onTitle = (e) => setFormTitle(e.target.value);
+  const onMainTextChange = (e) => setFormTextArea(e.target.value);
 
-  let [getText, setGetText] = useState();
-  let onChange = (e) => e.target.value;
   function onSubmit(e) {
     e.preventDefault();
+    console.log(formTitle.trim());
+    if (formTitle.trim() === "" || formTitle.trim() === null) {
+      setFormTitle("");
+      return alert("Write a title.");
+    } else if (formTextArea.trim() === "" || formTextArea.trim() === null) {
+      setFormTextArea("");
+      return alert("Write a main text");
+    }
 
-    return console.log("Submit");
+    let data = { title: formTitle, mainText: formTextArea };
+    dispatch(getBlogData(data));
+    setFormTitle("");
+    setFormTextArea("");
+    navigate("/");
   }
 
   return (
@@ -18,7 +38,7 @@ export default function NewWrite() {
           <label className='absolute p-2 text-left  text-gray-800' htmlFor='title'>
             Title:
           </label>
-          <input className=' w-full  py-1 pr-5 pl-14 border border-gray-500 rounded-md' id='title' maxLength={12}></input>
+          <input className=' w-full  py-1 pr-5 pl-14 border border-gray-500 rounded-md' id='title' maxLength={12} onChange={onTitle}></input>
         </div>
 
         <div className='text-gray-400'>{nowTime}</div>
@@ -29,7 +49,7 @@ export default function NewWrite() {
           <div className='space-y-3 flex flex-col items-center'>
             {/* {blog.img !== "" ? <img src={process.env.PUBLIC_URL + `/img/${blog.img}.jpg`} loading='lazy' alt={blog.img} key={index} className='rounded-md w-full min-w-[310px]' /> : null} */}
           </div>
-          <textarea value={getText} onChange={onChange} maxLength='200' placeholder='Main text' className='w-full h-72 px-5 py-2' wrap />
+          <textarea value={formTextArea} onChange={onMainTextChange} maxLength='400' placeholder='Main text' className='w-full h-72 px-5 py-2 resize-none' />
         </div>
         <input type='submit' value='Upload' className='border border-slate-800 w-full rounded-md shadow-sm py-2 bg-slate-700 text-white hover:bg-slate-900' />
       </form>

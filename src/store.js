@@ -1,4 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import moment from "moment/moment";
+
+const nowTime = moment().format("DD/MMM/YYYY HH:mm");
 
 let blogData = createSlice({
   name: "blogData",
@@ -15,6 +18,33 @@ let blogData = createSlice({
       img: 1,
     },
   ],
+  reducers: {
+    getBlogData: (state = this.initialState, action) => {
+      let newData = {
+        id: state.length + 1,
+        title: action.payload.title,
+        mainText: action.payload.mainText,
+        created: nowTime,
+        updated: nowTime,
+        like: 0,
+        img: "",
+      };
+      state.push(newData);
+      console.log(state);
+    },
+    modifyBlogData: (state = this.initialState, action) => {
+      let modifiedData = {
+        id: state[action.payload.index].id,
+        title: action.payload.title,
+        mainText: action.payload.mainText,
+        created: state[action.payload.index].created,
+        updated: nowTime,
+        like: 0,
+        img: state[action.payload.index].img,
+      };
+      state.splice(action.payload.index, 1, modifiedData);
+    },
+  },
 });
 
 export default configureStore({
@@ -22,3 +52,5 @@ export default configureStore({
     blogData: blogData.reducer,
   },
 });
+
+export let { getBlogData, modifyBlogData } = blogData.actions;
