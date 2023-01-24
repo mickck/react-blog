@@ -7,19 +7,6 @@ import Header from "./Layout/Header";
 import Modify from "./Components/Modify";
 
 function App() {
-  // let { blogData } = useSelector((state) => state);
-
-  // console.log(nowTime);
-  // let [endCss, setEndCss] = useState(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setEndCss(true);
-  //   }, 1);
-  //   return () => {
-  //     setEndCss(false);
-  //   };
-  // }, [setEndCss]);
-
   return (
     <div className='mx-auto max-w-xl'>
       <div className='border'>

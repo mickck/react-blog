@@ -4,6 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 export default function BlogCard() {
   let { blogData } = useSelector((state) => state);
   const navigate = useNavigate();
+  function modifyData(blog) {
+    console.log(blog);
+    if (window.confirm("Would you like to modify this post?")) {
+      navigate(`/blog/${blog.id}`);
+    }
+  }
   return (
     <>
       {blogData
@@ -14,9 +20,7 @@ export default function BlogCard() {
             <div
               className='border flex shadow-sm rounded-md w-full px-5 py-2 flex-col hover:border-gray-500 hover:cursor-pointer transition ease-in duration-200 '
               key={index}
-              onClick={() => {
-                navigate(`/blog/${blog.id}`);
-              }}>
+              onClick={() => modifyData(blog)}>
               <h2 className='text-xl text-center'>{blog.title}</h2>
               <div className='text-gray-400'>{blog.updated ? blog.updated : blog.created}</div>
               <div className='w-full border-gray-200 border' />
