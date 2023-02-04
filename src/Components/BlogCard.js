@@ -29,6 +29,8 @@ export default function BlogCard() {
                 {/* If blog has an Image, get Image file from public  */}
                 <div className='space-y-3 flex flex-col items-center' key={index + "img"}>
                   {blog.img !== "" ? <img src={process.env.PUBLIC_URL + `/img/${blog.img}.jpg`} loading='lazy' alt={blog.img} key={index} className='rounded-md w-full min-w-[310px]' /> : null}
+                  {blog.imageUrl !== "" ? <img src={`${blog.imageUrl}` }alt={blog.id} className="rounded-md" loading='lazy' /> : null}
+            
                 </div>
                 <h4>{blog.mainText}</h4>
               </div>

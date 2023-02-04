@@ -6,7 +6,7 @@ const nowTime = moment().format("DD/MMM/YYYY HH:mm");
 let blogData = createSlice({
   name: "blogData",
   initialState: [
-    { id: 1, title: "First blog", mainText: "this is first text. this blog to show you what I can.", created: "19/Jan/2023 15:36", updated: "19/Jan/2023", like: 2, img: 0 },
+    { id: 1, title: "First blog", mainText: "this is first text. this blog to show you what I can.", created: "19/Jan/2023 15:36", updated: "19/Jan/2023", like: 2, img: 0, imageUrl:"" },
     {
       id: 2,
       title: "Second blog",
@@ -15,7 +15,7 @@ let blogData = createSlice({
       created: "19/Jan/2023 15:40",
       updated: "19/Jan/2023",
       like: 0,
-      img: 1,
+      img: 1, imageUrl:""
     },
   ],
   reducers: {
@@ -28,6 +28,7 @@ let blogData = createSlice({
         updated: nowTime,
         like: 0,
         img: "",
+        imageUrl: action.payload.imageUrl
       };
       state.push(newData);
       console.log(state);
